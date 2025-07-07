@@ -1,6 +1,6 @@
 
 import { Home, MessageCircle, User, Settings } from "lucide-react";
-import { useState } from "react";
+import { useApp } from "../contexts/AppContext";
 
 interface NavbarProps {
   activeTab: string;
@@ -8,11 +8,13 @@ interface NavbarProps {
 }
 
 const Navbar = ({ activeTab, onTabChange }: NavbarProps) => {
+  const { t } = useApp();
+  
   const navItems = [
-    { id: "home", label: "Inicio", icon: Home },
-    { id: "messages", label: "Mensajes", icon: MessageCircle },
-    { id: "profile", label: "Perfil", icon: User },
-    { id: "settings", label: "Ajustes", icon: Settings },
+    { id: "home", label: t("home"), icon: Home },
+    { id: "messages", label: t("messages"), icon: MessageCircle },
+    { id: "profile", label: t("profile"), icon: User },
+    { id: "settings", label: t("settings"), icon: Settings },
   ];
 
   return (

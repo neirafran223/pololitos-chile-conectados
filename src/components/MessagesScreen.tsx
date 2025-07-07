@@ -1,9 +1,14 @@
 
+import { useState } from "react";
 import { MessageCircle, Search } from "lucide-react";
+import ChatView from "./ChatView";
 
 const MessagesScreen = () => {
+  const [selectedChat, setSelectedChat] = useState<any>(null);
+  
   const conversations = [
     {
+      id: 1,
       name: "María González",
       lastMessage: "¿A qué hora podríamos coordinar para el trabajo?",
       time: "10:30",
@@ -11,6 +16,7 @@ const MessagesScreen = () => {
       avatar: "MG"
     },
     {
+      id: 2,
       name: "Carlos Pérez",
       lastMessage: "Perfecto, nos vemos mañana entonces",
       time: "Ayer",
@@ -18,6 +24,7 @@ const MessagesScreen = () => {
       avatar: "CP"
     },
     {
+      id: 3,
       name: "Ana Rodríguez",
       lastMessage: "Gracias por el excelente trabajo",
       time: "Lun",
@@ -26,8 +33,17 @@ const MessagesScreen = () => {
     }
   ];
 
+  if (selectedChat) {
+    return (
+      <ChatView
+        contact={selectedChat}
+        onBack={() => setSelectedChat(null)}
+      />
+    );
+  }
+
   return (
-    <div className="pb-20">
+    <div className="pb-20 h-screen">
       {/* Header */}
       <div className="bg-gradient-to-r from-gray-900 to-gray-800 px-4 py-6">
         <h1 className="text-white text-2xl font-bold mb-4">Mensajes</h1>
@@ -46,8 +62,12 @@ const MessagesScreen = () => {
       {/* Conversations */}
       <div className="px-4 py-4">
         {conversations.length > 0 ? (
-          conversations.map((conversation, index) => (
-            <div key={index} className="flex items-center p-4 bg-gray-800 rounded-xl mb-3 hover:bg-gray-750 transition-colors cursor-pointer">
+          conversations.map((conversation) => (
+            <div 
+              key={conversation.id} 
+              onClick={() => setSelectedChat(conversation)}
+              className="flex items-center p-4 bg-gray-800 rounded-xl mb-3 hover:bg-gray-750 transition-colors cursor-pointer"
+            >
               <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white font-semibold mr-3">
                 {conversation.avatar}
               </div>

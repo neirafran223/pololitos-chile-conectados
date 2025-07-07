@@ -1,5 +1,6 @@
 
 import { useState } from "react";
+import { AppProvider } from "../contexts/AppContext";
 import Navbar from "../components/Navbar";
 import HomeScreen from "../components/HomeScreen";
 import MessagesScreen from "../components/MessagesScreen";
@@ -11,8 +12,17 @@ const Index = () => {
   const [activeTab, setActiveTab] = useState("home");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    setActiveTab("home");
+  };
+
   if (!isLoggedIn) {
-    return <AuthScreen onLogin={() => setIsLoggedIn(true)} />;
+    return (
+      <AppProvider>
+        <AuthScreen onLogin={() => setIsLoggedIn(true)} />
+      </AppProvider>
+    );
   }
 
   const renderActiveScreen = () => {
@@ -24,17 +34,19 @@ const Index = () => {
       case "profile":
         return <ProfileScreen />;
       case "settings":
-        return <SettingsScreen />;
+        return <SettingsScreen onLogout={handleLogout} />;
       default:
         return <HomeScreen />;
     }
   };
 
   return (
-    <div className="min-h-screen bg-gray-900">
-      {renderActiveScreen()}
-      <Navbar activeTab={activeTab} onTabChange={setActiveTab} />
-    </div>
+    <AppProvider>
+      <div className="min-h-screen bg-gray-900">
+        {renderActiveScreen()}
+        <Navbar activeTab={activeTab} onTabChange={setActiveTab} />
+      </div>
+    </AppProvider>
   );
 };
 
