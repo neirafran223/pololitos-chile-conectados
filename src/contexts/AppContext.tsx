@@ -65,7 +65,7 @@ const translations = {
     // Categories
     pets: "Mascotas",
     garden: "Jardín",
-    home: "Hogar",
+    homeCategory: "Hogar",
     moving: "Mudanza",
     transport: "Transporte",
     technology: "Tecnología",
@@ -126,7 +126,7 @@ const translations = {
     // Categories
     pets: "Pets",
     garden: "Garden",
-    home: "Home",
+    homeCategory: "Home",
     moving: "Moving",
     transport: "Transport",
     technology: "Technology",
