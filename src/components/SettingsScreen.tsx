@@ -1,5 +1,17 @@
 
-import { Moon, Sun, Globe, LogOut, Shield, Bell, CreditCard } from "lucide-react";
+import { 
+  Moon, 
+  Sun, 
+  Globe, 
+  LogOut, 
+  Shield, 
+  Bell, 
+  CreditCard, 
+  Settings as SettingsIcon 
+} from "lucide-react";
+import { Button } from "./ui/button";
+import { Card } from "./ui/card";
+import { Switch } from "./ui/switch";
 import { useApp } from "../contexts/AppContext";
 
 interface SettingsScreenProps {
@@ -21,116 +33,178 @@ const SettingsScreen = ({ onLogout }: SettingsScreenProps) => {
   };
 
   return (
-    <div className="pb-20">
+    <div className="pb-20 relative">
       {/* Header */}
-      <div className="bg-gradient-to-r from-gray-900 to-gray-800 px-4 py-6">
-        <h1 className="text-white text-2xl font-bold">{t('settings')}</h1>
-      </div>
-      
-      {/* Settings Options */}
-      <div className="px-4 py-6 space-y-6">
-        {/* Appearance */}
-        <div>
-          <h2 className="text-white text-lg font-semibold mb-3">{t('appearance')}</h2>
-          <div className="bg-gray-800 rounded-xl p-4 flex items-center justify-between">
-            <div className="flex items-center">
-              {theme === 'dark' ? <Moon className="text-blue-400 mr-3" size={20} /> : <Sun className="text-yellow-400 mr-3" size={20} />}
-              <div>
-                <h3 className="text-white font-medium">{t('darkTheme')}</h3>
-                <p className="text-gray-400 text-sm">{t('darkThemeDesc')}</p>
-              </div>
+      <Card className="mx-4 mt-6 mb-6 border-0 bg-card/80 backdrop-blur-lg shadow-2xl">
+        <div className="p-6">
+          <div className="flex items-center">
+            <div className="w-12 h-12 bg-gradient-to-br from-primary to-accent rounded-xl flex items-center justify-center mr-4">
+              <SettingsIcon className="text-primary-foreground" size={24} />
             </div>
-            <button
-              onClick={toggleTheme}
-              className={`w-12 h-6 rounded-full ${theme === 'dark' ? 'bg-blue-600' : 'bg-gray-600'} relative transition-colors`}
-            >
-              <div className={`w-5 h-5 bg-white rounded-full absolute top-0.5 transition-transform ${theme === 'dark' ? 'translate-x-6' : 'translate-x-0.5'}`} />
-            </button>
+            <h1 className="text-foreground text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              {t('settings')}
+            </h1>
           </div>
+        </div>
+      </Card>
+      
+      {/* Settings Sections */}
+      <div className="px-4 space-y-6">
+        {/* Appearance */}
+        <div className="space-y-3">
+          <h2 className="text-foreground text-lg font-semibold flex items-center mb-4">
+            <div className="w-1 h-5 bg-gradient-to-b from-primary to-accent rounded-full mr-3" />
+            {t('appearance')}
+          </h2>
+          
+          <Card className="p-0 border-0 bg-card/80 backdrop-blur-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 overflow-hidden">
+            <div className="p-4 flex items-center justify-between">
+              <div className="flex items-center">
+                <div className="w-10 h-10 bg-blue-500/10 rounded-lg flex items-center justify-center mr-3">
+                  {theme === 'dark' ? 
+                    <Moon size={20} className="text-blue-500" /> : 
+                    <Sun size={20} className="text-yellow-500" />
+                  }
+                </div>
+                <div>
+                  <h3 className="text-foreground font-semibold">{t('darkTheme')}</h3>
+                  <p className="text-muted-foreground text-sm">{t('darkThemeDesc')}</p>
+                </div>
+              </div>
+              <Switch 
+                checked={theme === 'dark'} 
+                onCheckedChange={toggleTheme}
+              />
+            </div>
+          </Card>
         </div>
         
         {/* Language */}
-        <div>
-          <h2 className="text-white text-lg font-semibold mb-3">{t('language')}</h2>
-          <div className="space-y-2">
-            <button 
-              onClick={() => setLanguage('es')}
-              className={`w-full p-4 rounded-xl flex items-center transition-colors ${
-                language === 'es' 
-                  ? 'bg-blue-600/20 border border-blue-500' 
-                  : 'bg-gray-800 hover:bg-gray-700'
-              }`}
-            >
-              <Globe className="text-green-400 mr-3" size={20} />
-              <div className="flex-1 text-left">
-                <h3 className="text-white font-medium">Español (Chile)</h3>
-                <p className="text-gray-400 text-sm">Idioma por defecto</p>
+        <div className="space-y-3">
+          <h2 className="text-foreground text-lg font-semibold flex items-center mb-4">
+            <div className="w-1 h-5 bg-gradient-to-b from-primary to-accent rounded-full mr-3" />
+            {t('language')}
+          </h2>
+          
+          <div className="space-y-3">
+            <Card className={`p-0 border-0 backdrop-blur-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 overflow-hidden cursor-pointer ${
+              language === 'es' 
+                ? 'bg-primary/10 ring-2 ring-primary/30' 
+                : 'bg-card/80 hover:bg-card/90'
+            }`}>
+              <div 
+                onClick={() => setLanguage('es')}
+                className="p-4 flex items-center justify-between"
+              >
+                <div className="flex items-center">
+                  <div className="w-10 h-10 bg-green-500/10 rounded-lg flex items-center justify-center mr-3">
+                    <Globe size={20} className="text-green-500" />
+                  </div>
+                  <div>
+                    <h3 className="text-foreground font-semibold">Español (Chile)</h3>
+                    <p className="text-muted-foreground text-sm">Idioma por defecto</p>
+                  </div>
+                </div>
+                {language === 'es' && (
+                  <div className="w-5 h-5 bg-primary rounded-full flex items-center justify-center">
+                    <div className="w-2 h-2 bg-primary-foreground rounded-full" />
+                  </div>
+                )}
               </div>
-              {language === 'es' && (
-                <div className="w-4 h-4 bg-blue-500 rounded-full" />
-              )}
-            </button>
+            </Card>
             
-            <button 
-              onClick={() => setLanguage('en')}
-              className={`w-full p-4 rounded-xl flex items-center transition-colors ${
-                language === 'en' 
-                  ? 'bg-blue-600/20 border border-blue-500' 
-                  : 'bg-gray-800 hover:bg-gray-700'
-              }`}
-            >
-              <Globe className="text-green-400 mr-3" size={20} />
-              <div className="flex-1 text-left">
-                <h3 className="text-white font-medium">English</h3>
-                <p className="text-gray-400 text-sm">International language</p>
+            <Card className={`p-0 border-0 backdrop-blur-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 overflow-hidden cursor-pointer ${
+              language === 'en' 
+                ? 'bg-primary/10 ring-2 ring-primary/30' 
+                : 'bg-card/80 hover:bg-card/90'
+            }`}>
+              <div 
+                onClick={() => setLanguage('en')}
+                className="p-4 flex items-center justify-between"
+              >
+                <div className="flex items-center">
+                  <div className="w-10 h-10 bg-green-500/10 rounded-lg flex items-center justify-center mr-3">
+                    <Globe size={20} className="text-green-500" />
+                  </div>
+                  <div>
+                    <h3 className="text-foreground font-semibold">English</h3>
+                    <p className="text-muted-foreground text-sm">International language</p>
+                  </div>
+                </div>
+                {language === 'en' && (
+                  <div className="w-5 h-5 bg-primary rounded-full flex items-center justify-center">
+                    <div className="w-2 h-2 bg-primary-foreground rounded-full" />
+                  </div>
+                )}
               </div>
-              {language === 'en' && (
-                <div className="w-4 h-4 bg-blue-500 rounded-full" />
-              )}
-            </button>
+            </Card>
           </div>
         </div>
         
         {/* Account */}
-        <div>
-          <h2 className="text-white text-lg font-semibold mb-3">{t('account')}</h2>
-          <div className="space-y-3">
-            <button className="w-full bg-gray-800 hover:bg-gray-700 p-4 rounded-xl flex items-center transition-colors">
-              <Shield className="text-purple-400 mr-3" size={20} />
-              <div className="flex-1 text-left">
-                <h3 className="text-white font-medium">{t('privacySecurity')}</h3>
-                <p className="text-gray-400 text-sm">{t('privacyDesc')}</p>
+        <div className="space-y-3">
+          <h2 className="text-foreground text-lg font-semibold flex items-center mb-4">
+            <div className="w-1 h-5 bg-gradient-to-b from-primary to-accent rounded-full mr-3" />
+            {t('account')}
+          </h2>
+          
+          <Card className="p-0 border-0 bg-card/80 backdrop-blur-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 overflow-hidden group cursor-pointer">
+            <div className="p-4 flex items-center">
+              <div className="w-10 h-10 bg-purple-500/10 rounded-lg flex items-center justify-center mr-3">
+                <Shield size={20} className="text-purple-500" />
               </div>
-            </button>
-            
-            <button className="w-full bg-gray-800 hover:bg-gray-700 p-4 rounded-xl flex items-center transition-colors">
-              <Bell className="text-orange-400 mr-3" size={20} />
-              <div className="flex-1 text-left">
-                <h3 className="text-white font-medium">{t('notifications')}</h3>
-                <p className="text-gray-400 text-sm">{t('notificationsDesc')}</p>
+              <div className="flex-1">
+                <h3 className="text-foreground font-semibold group-hover:text-primary transition-colors">
+                  {t('privacySecurity')}
+                </h3>
+                <p className="text-muted-foreground text-sm">{t('privacyDesc')}</p>
               </div>
-            </button>
-            
-            <button className="w-full bg-gray-800 hover:bg-gray-700 p-4 rounded-xl flex items-center transition-colors">
-              <CreditCard className="text-green-400 mr-3" size={20} />
-              <div className="flex-1 text-left">
-                <h3 className="text-white font-medium">{t('paymentMethods')}</h3>
-                <p className="text-gray-400 text-sm">{t('paymentDesc')}</p>
+            </div>
+          </Card>
+          
+          <Card className="p-0 border-0 bg-card/80 backdrop-blur-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 overflow-hidden group cursor-pointer">
+            <div className="p-4 flex items-center">
+              <div className="w-10 h-10 bg-orange-500/10 rounded-lg flex items-center justify-center mr-3">
+                <Bell size={20} className="text-orange-500" />
               </div>
-            </button>
-          </div>
+              <div className="flex-1">
+                <h3 className="text-foreground font-semibold group-hover:text-primary transition-colors">
+                  {t('notifications')}
+                </h3>
+                <p className="text-muted-foreground text-sm">{t('notificationsDesc')}</p>
+              </div>
+            </div>
+          </Card>
+          
+          <Card className="p-0 border-0 bg-card/80 backdrop-blur-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 overflow-hidden group cursor-pointer">
+            <div className="p-4 flex items-center">
+              <div className="w-10 h-10 bg-green-500/10 rounded-lg flex items-center justify-center mr-3">
+                <CreditCard size={20} className="text-green-500" />
+              </div>
+              <div className="flex-1">
+                <h3 className="text-foreground font-semibold group-hover:text-primary transition-colors">
+                  {t('paymentMethods')}
+                </h3>
+                <p className="text-muted-foreground text-sm">{t('paymentDesc')}</p>
+              </div>
+            </div>
+          </Card>
         </div>
         
         {/* Logout */}
-        <div className="pt-4">
-          <button 
-            onClick={handleLogout}
-            className="w-full bg-red-600 hover:bg-red-700 p-4 rounded-xl flex items-center justify-center transition-colors"
-          >
-            <LogOut className="text-white mr-3" size={20} />
-            <span className="text-white font-medium">{t('logout')}</span>
-          </button>
-        </div>
+        <Card className="border-0 bg-card/80 backdrop-blur-lg shadow-xl">
+          <div className="p-4">
+            <Button 
+              onClick={handleLogout} 
+              variant="outline"
+              className="w-full h-12 border-2 border-red-500/20 text-red-500 hover:bg-red-500/10 hover:border-red-500/40 transition-all duration-200 font-semibold"
+              size="lg"
+            >
+              <LogOut size={20} className="mr-2" />
+              {t('logout')}
+            </Button>
+          </div>
+        </Card>
       </div>
     </div>
   );

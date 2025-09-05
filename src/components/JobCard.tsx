@@ -1,5 +1,7 @@
 
-import { MapPin, Clock, DollarSign } from "lucide-react";
+import { MapPin, Clock, DollarSign, ArrowRight } from "lucide-react";
+import { Card } from "./ui/card";
+import { Badge } from "./ui/badge";
 
 interface JobCardProps {
   title: string;
@@ -13,34 +15,43 @@ interface JobCardProps {
 
 const JobCard = ({ title, description, location, price, time, category, onClick }: JobCardProps) => {
   return (
-    <div 
+    <Card 
       onClick={onClick}
-      className="bg-gray-800 rounded-xl p-4 mb-4 border border-gray-700 hover:border-blue-500 transition-all hover:shadow-lg hover:shadow-blue-500/10 cursor-pointer"
+      className="p-6 border-0 bg-card/80 backdrop-blur-lg shadow-xl hover:shadow-2xl transition-all duration-300 cursor-pointer group hover:-translate-y-1 hover:bg-card/90"
     >
-      <div className="flex justify-between items-start mb-2">
-        <h3 className="text-white font-semibold text-lg">{title}</h3>
-        <span className="bg-blue-600 text-blue-100 px-2 py-1 rounded-full text-xs">
-          {category}
-        </span>
-      </div>
-      
-      <p className="text-gray-300 mb-3 text-sm">{description}</p>
-      
-      <div className="flex flex-wrap gap-3 text-sm">
-        <div className="flex items-center text-gray-400">
-          <MapPin size={14} className="mr-1" />
-          {location}
-        </div>
-        <div className="flex items-center text-green-400">
-          <DollarSign size={14} className="mr-1" />
-          {price}
-        </div>
-        <div className="flex items-center text-gray-400">
-          <Clock size={14} className="mr-1" />
-          {time}
+      <div className="flex justify-between items-start mb-4">
+        <h3 className="text-foreground font-semibold text-lg group-hover:text-primary transition-colors">{title}</h3>
+        <div className="flex items-center gap-2">
+          <Badge 
+            variant="secondary" 
+            className="bg-primary/10 text-primary border-primary/20 font-medium"
+          >
+            {category}
+          </Badge>
+          <ArrowRight 
+            size={16} 
+            className="text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all"
+          />
         </div>
       </div>
-    </div>
+      
+      <p className="text-muted-foreground mb-4 text-sm leading-relaxed">{description}</p>
+      
+      <div className="flex flex-wrap gap-4 text-sm">
+        <div className="flex items-center text-muted-foreground hover:text-primary transition-colors">
+          <MapPin size={16} className="mr-2" />
+          <span className="font-medium">{location}</span>
+        </div>
+        <div className="flex items-center text-green-600 dark:text-green-400 font-semibold">
+          <DollarSign size={16} className="mr-2" />
+          <span>{price}</span>
+        </div>
+        <div className="flex items-center text-muted-foreground">
+          <Clock size={16} className="mr-2" />
+          <span>{time}</span>
+        </div>
+      </div>
+    </Card>
   );
 };
 

@@ -1,68 +1,117 @@
 
-import { Edit, Star, Award, Calendar } from "lucide-react";
+import { Edit, Star, Award, Calendar, User, ChevronRight } from "lucide-react";
+import { Button } from "./ui/button";
+import { Card } from "./ui/card";
+import { Avatar, AvatarFallback } from "./ui/avatar";
 
 const ProfileScreen = () => {
   return (
-    <div className="pb-20">
+    <div className="pb-20 relative">
       {/* Header */}
-      <div className="bg-gradient-to-r from-gray-900 to-gray-800 px-4 py-6">
-        <div className="flex items-center">
-          <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white text-2xl font-bold mr-4">
-            JD
+      <Card className="mx-4 mt-6 mb-6 border-0 bg-card/80 backdrop-blur-lg shadow-2xl">
+        <div className="p-6">
+          <div className="flex items-center">
+            <Avatar className="w-20 h-20 mr-4">
+              <AvatarFallback className="bg-gradient-to-br from-primary to-accent text-primary-foreground text-2xl font-bold">
+                JD
+              </AvatarFallback>
+            </Avatar>
+            <div className="flex-1">
+              <h1 className="text-foreground text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-1">
+                Juan Díaz
+              </h1>
+              <p className="text-muted-foreground font-medium">juan.diaz@email.com</p>
+              <p className="text-muted-foreground text-sm">+56 9 8765 4321</p>
+            </div>
+            <Button 
+              variant="outline" 
+              size="icon"
+              className="h-10 w-10 border-2 hover:bg-primary/10 hover:border-primary transition-all duration-200"
+            >
+              <Edit size={18} />
+            </Button>
           </div>
-          <div className="flex-1">
-            <h1 className="text-white text-2xl font-bold">Juan Díaz</h1>
-            <p className="text-gray-300">juan.diaz@email.com</p>
-            <p className="text-gray-400 text-sm">+56 9 8765 4321</p>
-          </div>
-          <button className="bg-gray-700 hover:bg-gray-600 p-2 rounded-lg transition-colors">
-            <Edit size={18} className="text-white" />
-          </button>
+        </div>
+      </Card>
+      
+      {/* Stats */}
+      <div className="px-4 mb-6">
+        <div className="grid grid-cols-3 gap-4">
+          <Card className="p-4 text-center border-0 bg-card/80 backdrop-blur-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+            <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-xl flex items-center justify-center mx-auto mb-3">
+              <Star className="text-white" size={24} />
+            </div>
+            <p className="text-foreground font-bold text-xl mb-1">4.8</p>
+            <p className="text-muted-foreground text-sm font-medium">Calificación</p>
+          </Card>
+          
+          <Card className="p-4 text-center border-0 bg-card/80 backdrop-blur-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+            <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-emerald-500 rounded-xl flex items-center justify-center mx-auto mb-3">
+              <Award className="text-white" size={24} />
+            </div>
+            <p className="text-foreground font-bold text-xl mb-1">23</p>
+            <p className="text-muted-foreground text-sm font-medium">Completados</p>
+          </Card>
+          
+          <Card className="p-4 text-center border-0 bg-card/80 backdrop-blur-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+            <div className="w-12 h-12 bg-gradient-to-br from-primary to-accent rounded-xl flex items-center justify-center mx-auto mb-3">
+              <Calendar className="text-primary-foreground" size={24} />
+            </div>
+            <p className="text-foreground font-bold text-xl mb-1">2</p>
+            <p className="text-muted-foreground text-sm font-medium">Meses</p>
+          </Card>
         </div>
       </div>
       
-      {/* Stats */}
-      <div className="px-4 py-6">
-        <div className="grid grid-cols-3 gap-4 mb-6">
-          <div className="bg-gray-800 rounded-xl p-4 text-center">
-            <Star className="text-yellow-400 mx-auto mb-2" size={24} />
-            <p className="text-white font-bold text-lg">4.8</p>
-            <p className="text-gray-400 text-sm">Calificación</p>
+      {/* Menu Options */}
+      <div className="px-4 space-y-3">
+        <Card className="p-0 border-0 bg-card/80 backdrop-blur-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 overflow-hidden group cursor-pointer">
+          <div className="p-4 flex items-center justify-between">
+            <div className="flex-1">
+              <h3 className="text-foreground font-semibold mb-1 group-hover:text-primary transition-colors">
+                Mis Trabajos Publicados
+              </h3>
+              <p className="text-muted-foreground text-sm">Ver y gestionar tus publicaciones</p>
+            </div>
+            <ChevronRight size={20} className="text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
           </div>
-          <div className="bg-gray-800 rounded-xl p-4 text-center">
-            <Award className="text-green-400 mx-auto mb-2" size={24} />
-            <p className="text-white font-bold text-lg">23</p>
-            <p className="text-gray-400 text-sm">Completados</p>
-          </div>
-          <div className="bg-gray-800 rounded-xl p-4 text-center">
-            <Calendar className="text-blue-400 mx-auto mb-2" size={24} />
-            <p className="text-white font-bold text-lg">2</p>
-            <p className="text-gray-400 text-sm">Meses</p>
-          </div>
-        </div>
+        </Card>
         
-        {/* Menu Options */}
-        <div className="space-y-3">
-          <button className="w-full bg-gray-800 hover:bg-gray-700 p-4 rounded-xl text-left transition-colors">
-            <h3 className="text-white font-medium mb-1">Mis Trabajos Publicados</h3>
-            <p className="text-gray-400 text-sm">Ver y gestionar tus publicaciones</p>
-          </button>
-          
-          <button className="w-full bg-gray-800 hover:bg-gray-700 p-4 rounded-xl text-left transition-colors">
-            <h3 className="text-white font-medium mb-1">Trabajos Aplicados</h3>
-            <p className="text-gray-400 text-sm">Seguimiento de tus postulaciones</p>
-          </button>
-          
-          <button className="w-full bg-gray-800 hover:bg-gray-700 p-4 rounded-xl text-left transition-colors">
-            <h3 className="text-white font-medium mb-1">Calificaciones</h3>
-            <p className="text-gray-400 text-sm">Ver comentarios y puntuaciones</p>
-          </button>
-          
-          <button className="w-full bg-gray-800 hover:bg-gray-700 p-4 rounded-xl text-left transition-colors">
-            <h3 className="text-white font-medium mb-1">Historial de Pagos</h3>
-            <p className="text-gray-400 text-sm">Revisar transacciones</p>
-          </button>
-        </div>
+        <Card className="p-0 border-0 bg-card/80 backdrop-blur-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 overflow-hidden group cursor-pointer">
+          <div className="p-4 flex items-center justify-between">
+            <div className="flex-1">
+              <h3 className="text-foreground font-semibold mb-1 group-hover:text-primary transition-colors">
+                Trabajos Aplicados
+              </h3>
+              <p className="text-muted-foreground text-sm">Seguimiento de tus postulaciones</p>
+            </div>
+            <ChevronRight size={20} className="text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
+          </div>
+        </Card>
+        
+        <Card className="p-0 border-0 bg-card/80 backdrop-blur-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 overflow-hidden group cursor-pointer">
+          <div className="p-4 flex items-center justify-between">
+            <div className="flex-1">
+              <h3 className="text-foreground font-semibold mb-1 group-hover:text-primary transition-colors">
+                Calificaciones
+              </h3>
+              <p className="text-muted-foreground text-sm">Ver comentarios y puntuaciones</p>
+            </div>
+            <ChevronRight size={20} className="text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
+          </div>
+        </Card>
+        
+        <Card className="p-0 border-0 bg-card/80 backdrop-blur-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 overflow-hidden group cursor-pointer">
+          <div className="p-4 flex items-center justify-between">
+            <div className="flex-1">
+              <h3 className="text-foreground font-semibold mb-1 group-hover:text-primary transition-colors">
+                Historial de Pagos
+              </h3>
+              <p className="text-muted-foreground text-sm">Revisar transacciones</p>
+            </div>
+            <ChevronRight size={20} className="text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
+          </div>
+        </Card>
       </div>
     </div>
   );

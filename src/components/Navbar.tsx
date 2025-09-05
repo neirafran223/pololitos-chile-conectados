@@ -1,5 +1,6 @@
 
 import { Home, MessageCircle, User, Settings } from "lucide-react";
+import { Button } from "./ui/button";
 import { useApp } from "../contexts/AppContext";
 
 interface NavbarProps {
@@ -18,25 +19,29 @@ const Navbar = ({ activeTab, onTabChange }: NavbarProps) => {
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-gray-900 border-t border-gray-700 px-4 py-2 z-50">
+    <nav className="fixed bottom-0 left-0 right-0 bg-card/80 backdrop-blur-xl border-t border-border/50 px-4 py-3 z-50 shadow-2xl">
       <div className="flex justify-around items-center max-w-md mx-auto">
         {navItems.map((item) => {
           const Icon = item.icon;
           const isActive = activeTab === item.id;
           
           return (
-            <button
+            <Button
               key={item.id}
+              variant="ghost"
               onClick={() => onTabChange(item.id)}
-              className={`flex flex-col items-center py-2 px-3 rounded-lg transition-all ${
+              className={`flex flex-col items-center h-auto py-2 px-3 rounded-xl transition-all duration-300 ${
                 isActive 
-                  ? "text-blue-400 bg-gray-800" 
-                  : "text-gray-400 hover:text-gray-200"
+                  ? "text-primary bg-primary/10 shadow-lg transform scale-105" 
+                  : "text-muted-foreground hover:text-primary hover:bg-primary/5"
               }`}
             >
-              <Icon size={20} />
-              <span className="text-xs mt-1">{item.label}</span>
-            </button>
+              <Icon size={22} />
+              <span className="text-xs mt-1 font-medium">{item.label}</span>
+              {isActive && (
+                <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-primary rounded-full" />
+              )}
+            </Button>
           );
         })}
       </div>
